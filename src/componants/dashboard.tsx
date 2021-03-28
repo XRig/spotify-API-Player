@@ -34,7 +34,6 @@ function Dashboard(props: Props) {
     }
 
     useEffect(() => {
-        console.log('test')
         if (!playingTrack) return
         (async () => {
             try {
