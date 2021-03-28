@@ -1,3 +1,9 @@
+Spotify API Player to play songs and retreave lyrics. 
+root Tutorial by Web Dev Simplified https://www.youtube.com/channel/UCFbNIlppjAuEX4znoulh0Cw
+Changes - Built in typescript. Converted promise chains to async await. 
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
