@@ -1,12 +1,8 @@
 import React from 'react'
+import {track} from '../types'
 
 interface Props {
-    track: {
-        artist: string;
-        title: string;
-        uri: string;
-        albumUrl: string;
-    },
+    track: track,
     key: string,
     chooseTrack: (track: any) => any;
 }

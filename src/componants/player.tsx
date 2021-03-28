@@ -1,9 +1,10 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import SpotifyPlayer from 'react-spotify-web-playback'
+
 interface Props {
     accessToken?: string | null,
-    trackUri?: string
+    trackUri: string
 }
 
 function Player(props: Props) {
