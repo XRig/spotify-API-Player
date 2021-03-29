@@ -11,9 +11,9 @@ function Player(props: Props) {
     const [play, setPlay] = useState<boolean>(false)
     const { accessToken, trackUri } = props
 
-    useEffect(() =>setPlay(true),[trackUri])
-    if (!accessToken) return null
-    return (
+    useEffect(() => setPlay(true),[trackUri])
+    if (!accessToken) return <div>No Token </div>
+    return (<div> {trackUri}
         <SpotifyPlayer
             token={accessToken}
             showSaveIcon
@@ -22,6 +22,7 @@ function Player(props: Props) {
             uris={trackUri ? [trackUri] : []}
             play={play}
             />
+            </div>
             
     )
 }

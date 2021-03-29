@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { requestAccessToken, refreshAccessToken } from '../requests/api'
 interface Props {
     code: string
 }
@@ -14,7 +14,7 @@ function UseAuth(props: Props) {
 
         (async () => {
             try {
-                const { data } = await axios.post('http://localhost:3080/login', { code })
+                const { data } = await requestAccessToken(code)
                 window.history.pushState({}, '', '/')
                 setAccessToken(data.accessToken)
                 setRefreshToken(data.refreshToken)
@@ -25,18 +25,18 @@ function UseAuth(props: Props) {
     }, [code])
 
     useEffect(() => {
-        if(!refreshToken || !expiresIn) return;
-            const timeout = setInterval(async()=> {
-                
-                try {
-                    const {data} = await axios.post('http://localhost:3080/refresh', { refreshToken })
-                    window.history.pushState({}, '', '/')
-                    setAccessToken(data.access_token)
-                    setExpiresIn(data.expires_in)
-                    
-                } catch (error) { console.log(refreshToken) }
-            },(expiresIn-60) *1000)
-            return () => clearInterval(timeout)
+        if (!refreshToken || !expiresIn) return;
+        const timeout = setInterval(async () => {
+
+            try {
+                const { data } = await refreshAccessToken(refreshToken)
+                window.history.pushState({}, '', '/')
+                setAccessToken(data.access_token)
+                setExpiresIn(data.expires_in)
+
+            } catch (error) { console.log(refreshToken) }
+        }, (expiresIn - 60) * 1000)
+        return () => clearInterval(timeout)
 
 
     }, [refreshToken, expiresIn])

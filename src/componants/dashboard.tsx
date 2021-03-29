@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import SpotifyWebApi from 'spotify-web-api-node'
 import TrackSearchResult from './trackSearchResult'
 import Player from './player'
-import axios from 'axios'
+import { getLyrics } from '../requests/api'
 
 
 const spotifyApi = new SpotifyWebApi({
@@ -34,12 +34,7 @@ function Dashboard(props: Props) {
         if (!playingTrack) return
         (async () => {
             try {
-                const { data } = await axios.get('http://localhost:3080/lyrics', {
-                    params: {
-                        track: playingTrack.title,
-                        artist: playingTrack.artist
-                    }
-                })
+                const { data } = await getLyrics(playingTrack.title, playingTrack.artist)
                 setLyrics(data)
             } catch (error) {
 
@@ -86,7 +81,9 @@ function Dashboard(props: Props) {
     }, [search, accessToken])
 
     return (
+
         <Container className="d-flex flex-column py-2" style={{ height: "100vh" }}>
+
             <Form.Control type="search" placeholder="Search Songs/Artists" value={search} onChange={e => setSearch(e.target.value)} />
             <div className="flex-grow-1 my-2" style={{ overflowY: "auto" }}>
                 {searchResults?.map(track => {
