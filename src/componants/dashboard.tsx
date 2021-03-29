@@ -7,6 +7,7 @@ import TrackSearchResult from './trackSearchResult'
 import Player from './player'
 import axios from 'axios'
 
+
 const spotifyApi = new SpotifyWebApi({
     clientId: 'c4e5378e4d7f4fb08bae2547e66d43ee'
 })
@@ -62,7 +63,6 @@ function Dashboard(props: Props) {
 
                 let searchResultObject = result?.body?.tracks?.items?.map(track => {
                     const smallestAlbumArt = track?.album?.images?.reduce((smallest: any, image: any) => {
-                        if (!image.height) return
                         if (!smallest.height) return image
                         if (image.height < smallest.height) return image
                         return smallest
